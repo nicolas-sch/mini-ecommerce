@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCategories } from "../hooks/useCategories";
+import Spinner from "./Spinner";
 
 export default function CategoryGrid() {
   const { categories, isLoading, error } = useCategories();
@@ -9,7 +10,8 @@ export default function CategoryGrid() {
   if (isLoading) {
     return (
       <div className="container mx-auto p-4 text-center">
-        <p>Cargando categorias...</p>
+        <Spinner />
+        <p className="mt-4">Cargando categorias...</p>
       </div>
     );
   }
