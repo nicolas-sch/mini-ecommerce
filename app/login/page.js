@@ -18,19 +18,13 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import styles from "./Login.module.css";
+import mockUser from "../data/mockUser.json";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
   const router = useRouter();
-
-  const mockUser = {
-    email: "carlos_demo@cecote.es",
-    password: "12345",
-    username: "carlosperez",
-    firstName: "Carlos",
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
