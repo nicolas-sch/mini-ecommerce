@@ -37,7 +37,7 @@ export default function CategoryGrid() {
               <img
                 src={category.image}
                 alt={category.name}
-                className="w-full h-32 object-cover rounded-md mb-4"
+                className="w-full h-full object-cover rounded-md mb-4"
               />
               <h3 className="text-lg font-semibold">{category.name}</h3>
             </div>
