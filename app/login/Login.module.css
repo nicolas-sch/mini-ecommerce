@@ -1,0 +1,87 @@
+.container {
+  @apply min-h-screen flex;
+  background-color: #242422;
+}
+
+.leftSide {
+  @apply w-1/2 flex items-center justify-center p-8;
+}
+
+.formContainer {
+  @apply p-8 rounded-lg;
+  width: 468px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: flex-start;
+}
+
+.formTitle {
+  @apply text-2xl font-bold text-left mb-6;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 46px;
+}
+
+.formLabel {
+  @apply block text-sm font-medium text-gray-700;
+}
+
+.formInput {
+  background: transparent;
+  width: 100%;
+  height: 49px;
+  top: 13.6px;
+  border-radius: 10px;
+  border-width: 1px;
+  border: 1px solid #ffffff;
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 89px;
+}
+
+.formButton {
+  width: 286px;
+  height: 49px;
+  gap: 8px;
+  border-radius: 100px;
+  padding: 12px 32px;
+  background: linear-gradient(276.75deg, #bdf3f3 12.22%, #5bc0cd 93.4%);
+}
+
+.linkHome {
+  position: absolute;
+  bottom: 55px;
+  color: #ffffff;
+}
+
+.rightSide {
+  @apply w-1/2 relative;
+}
+
+.image {
+  @apply absolute inset-0;
+}
+
+.imageLogo {
+  padding-bottom: 16px;
+}
+
+@media (max-width: 425px) {
+  .leftSide {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .rightSide {
+    display: none;
+  }
+}
