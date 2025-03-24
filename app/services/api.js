@@ -1,8 +1,7 @@
 export async function getCategories() {
   try {
     const res = await fetch(
-      "https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/categories",
-      { next: { revalidate: 60 } },
+      "https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/categories"
     );
 
     if (!res.ok) {
@@ -21,8 +20,7 @@ export async function getCategories() {
 export async function getCategoryProducts(slug) {
   try {
     const res = await fetch(
-      `https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/${slug}`,
-      { next: { revalidate: 60 } },
+      `https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/${slug}`
     );
 
     if (!res.ok) {
@@ -47,8 +45,7 @@ export async function getCategoryProducts(slug) {
 export async function getProductDetails(slugCategory, slugProduct) {
   try {
     const res = await fetch(
-      `https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/${slugCategory}/${slugProduct}`,
-      { next: { revalidate: 60 } },
+      `https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/${slugCategory}/${slugProduct}`
     );
 
     if (!res.ok) {
@@ -59,7 +56,7 @@ export async function getProductDetails(slugCategory, slugProduct) {
   } catch (error) {
     console.error("Error al buscar detalles del produto:", error);
     throw new Error(
-      "No se pudieronm cargar los detalles del producto. Inténtelo de nuevo más tarde."
+      "No se pudieron cargar los detalles del producto. Inténtelo de nuevo más tarde."
     );
   }
 }

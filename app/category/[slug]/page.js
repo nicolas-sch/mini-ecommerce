@@ -13,14 +13,16 @@ export async function generateStaticParams() {
 
 export default async function CategoryPage({ params }) {
   const { slug } = await params;
-
+  
   try {
     const products = await getCategoryProducts(slug);
 
     if (!products || products.length === 0) {
       return (
         <div className="container mx-auto p-4 text-center">
-          <h2 className="text-2xl font-bold mb-4">No se encontraron productos</h2>
+          <h2 className="text-2xl font-bold mb-4">
+            No se encontraron productos
+          </h2>
           <Link href="/" className="text-blue-600 hover:underline">
             Volver a home
           </Link>
@@ -39,7 +41,9 @@ export default async function CategoryPage({ params }) {
     return (
       <div className="container mx-auto p-4 text-center">
         <h2 className="text-2xl font-bold mb-4">Error al cargar productos</h2>
-        <p className="text-red-600 mb-4">No se pudieron recuperar los productos. Inténtelo de nuevo más tarde.</p>
+        <p className="text-red-600 mb-4">
+          No se pudieron recuperar los productos. Inténtelo de nuevo más tarde.
+        </p>
         <Link href="/" className="text-blue-600 hover:underline">
           Volver a home
         </Link>

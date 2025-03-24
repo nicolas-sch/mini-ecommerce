@@ -1,4 +1,4 @@
-import { getProductDetails } from "@/app/services/api";
+import { getProductDetails, getCategories } from "@/app/services/api";
 import AddToCartButton from "@/app/components/AddToCartButton";
 import Link from "next/link";
 import { formatPrice } from "@/app/utils/formatPrice";
@@ -6,11 +6,20 @@ import { formatPrice } from "@/app/utils/formatPrice";
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  return [];
+  const categories = await getCategories();
+
+  return categories.flatMap((category) =>
+    Array.isArray(category)
+      ? category.products.map((product) => ({
+          slugCategory: category.slug,
+          slugProduct: product.slug,
+        }))
+      : []
+  );
 }
 
 export default async function ProductPage({ params }) {
-  const { slugCategory, slugProduct } = params;
+  const { slugCategory, slugProduct } = await params;
 
   try {
     const product = await getProductDetails(slugCategory, slugProduct);
@@ -18,7 +27,7 @@ export default async function ProductPage({ params }) {
     if (!product) {
       return (
         <div className="container mx-auto p-4 text-center">
-          <h2 className="text-2xl font-bold mb-4">Producto no encontrado</h2>
+          <h1 className="text-2xl font-bold mb-4">Producto no encontrado</h1>
           <Link href="/" className="text-blue-600 hover:underline">
             Volver a home
           </Link>
@@ -56,7 +65,9 @@ export default async function ProductPage({ params }) {
             )}
 
             {shippingShortDescription && (
-              <p className="text-sm text-green-600 mb-4">Envio en 24-72 horas</p>
+              <p className="text-sm text-green-600 mb-4">
+                Envio en 24-72 horas
+              </p>
             )}
 
             <AddToCartButton product={product} />
@@ -64,11 +75,11 @@ export default async function ProductPage({ params }) {
         </div>
       </div>
     );
-
   } catch (error) {
+    console.error("Error al buscar detalles del producto:", error);
     return (
       <div className="container mx-auto p-4 text-center">
-        <h2 className="text-2xl font-bold mb-4">Erro ao carregar produto</h2>
+        <h1 className="text-2xl font-bold mb-4">Error al cargar el producto</h1>
         <p className="text-red-600 mb-4">{error.message}</p>
         <Link href="/" className="text-blue-600 hover:underline">
           Volver a home
