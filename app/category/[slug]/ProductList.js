@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import Link from "next/link";
+import { useState, useMemo } from "react";
 import ProductCard from "@/app/components/ProductCard";
 import {
   Select,
@@ -15,19 +14,15 @@ export default function ProductList({ products, slug }) {
   const [sortBy, setSortBy] = useState("default");
 
   const sortedProducts = useMemo(() => {
-    if (sortBy === "sold") {
-      return [...products].sort((a, b) => b.sold - a.sold);
-    }
-    return products;
+    return sortBy === "sold"
+      ? [...products].sort((a, b) => b.sold - a.sold)
+      : products;
   }, [products, sortBy]);
 
-  if (!products.length) {
+  if (!products?.length) {
     return (
-      <div className="container mx-auto p-4 text-center">
-        <h2 className="text-2xl font-bold mb-4">Ningun producto encontrado</h2>
-        <Link href="/" className="text-blue-600 hover:underline">
-          Volver a home
-        </Link>
+      <div className="text-center py-12">
+        <p>No se encontraron productos.</p>
       </div>
     );
   }

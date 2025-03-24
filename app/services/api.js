@@ -1,7 +1,8 @@
 export async function getCategories() {
   try {
     const res = await fetch(
-      "https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/categories"
+      "https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/categories",
+      { next: { revalidate: 60 } },
     );
 
     if (!res.ok) {
@@ -11,36 +12,43 @@ export async function getCategories() {
     return await res.json();
   } catch (error) {
     console.error("Error al buscar categorías:", error);
-    throw new Error("No se pudieron cargar las categorías. Por favor inténtalo de nuevo.");
+    throw new Error(
+      "No se pudieron cargar las categorías. Por favor inténtalo de nuevo."
+    );
   }
 }
 
 export async function getCategoryProducts(slug) {
-    try {
-      const res = await fetch(
-        `https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/${slug}`
-      );
-  
-      if (!res.ok) {
-        if (res.status === 404) {
-          return [];
-        }
-        throw new Error(
-          `Error al buscar productos: ${res.status} ${res.statusText}`
-        );
+  try {
+    const res = await fetch(
+      `https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/${slug}`,
+      { next: { revalidate: 60 } },
+    );
+
+    if (!res.ok) {
+      if (res.status === 404) {
+        return [];
       }
-  
-      return await res.json();
-    } catch (error) {
-      console.error("Error al buscar productos:", error);
-      throw new Error("No se pudieron cargar los productos. Inténtelo de nuevo más tarde.");
+      throw new Error(
+        `Error al buscar productos: ${res.status} ${res.statusText}`
+      );
     }
+
+
+    return await res.json();
+  } catch (error) {
+    console.error("Error al buscar productos:", error);
+    throw new Error(
+      "No se pudieron cargar los productos. Inténtelo de nuevo más tarde."
+    );
   }
+}
 
 export async function getProductDetails(slugCategory, slugProduct) {
   try {
     const res = await fetch(
-      `https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/${slugCategory}/${slugProduct}`
+      `https://67dbfb6d1fd9e43fe476b875.mockapi.io/api/v1/${slugCategory}/${slugProduct}`,
+      { next: { revalidate: 60 } },
     );
 
     if (!res.ok) {

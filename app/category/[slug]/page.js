@@ -1,12 +1,32 @@
 import ProductList from "./ProductList";
-import { getCategoryProducts } from "@/app/services/api";
+import { getCategoryProducts, getCategories } from "@/app/services/api";
 import Link from "next/link";
+
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories.map((category) => ({
+    slug: category.slug,
+  }));
+}
 
 export default async function CategoryPage({ params }) {
   const { slug } = await params;
 
   try {
     const products = await getCategoryProducts(slug);
+
+    if (!products || products.length === 0) {
+      return (
+        <div className="container mx-auto p-4 text-center">
+          <h2 className="text-2xl font-bold mb-4">No se encontraron productos</h2>
+          <Link href="/" className="text-blue-600 hover:underline">
+            Volver a home
+          </Link>
+        </div>
+      );
+    }
 
     return (
       <div className="container mx-auto p-8">
